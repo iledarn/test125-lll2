@@ -105,7 +105,10 @@
     '';
   in
   {
-    packages.default = myEnv;
+    packages = {
+      default = myEnv;
+      python-with-libs = wrapperScript;
+    };
 
     apps = {
       default = {
