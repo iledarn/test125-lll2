@@ -33,14 +33,9 @@
 
     libsass-python = pkgs.python37Packages.buildPythonPackage rec {
       pname = "libsass";
-      # version = "0.12.3";
       version = "0.15.0";
       format = "wheel";  # Specify that this is a wheel
 
-      # src = pkgs.fetchurl {
-      #   url = "https://files.pythonhosted.org/packages/cp36/l/libsass/libsass-0.12.3-cp36-cp36m-manylinux1_x86_64.whl";
-      #   sha256 = "b064ccedb51b874c725a40f03fc952afd85bd6f5369d41aa74f393ff3388b9e1";
-      # };
       src = pkgs.fetchurl {
         url = "https://files.pythonhosted.org/packages/56/48/b4e0309c15c92936250eaf069a63c69ab863bba3d30075fbfe323ce4531f/libsass-0.15.0-cp37-cp37m-manylinux1_x86_64.whl";
         sha256 = "d7eef002cada7533edae40fac1fbeb23b14d56c51683d695c93860b4d5cd7b67";
