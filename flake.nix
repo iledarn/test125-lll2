@@ -94,6 +94,7 @@
         pythonEnv
         stdenv.cc.cc.lib
         wkhtmltopdf
+        postgresql_13
       ];
     };
 
