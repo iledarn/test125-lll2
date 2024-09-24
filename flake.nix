@@ -107,10 +107,17 @@
   {
     packages.default = myEnv;
 
-    apps.default = {
-      type = "app";
-      program = "${wrapperScript}/bin/python-with-libs";
+    apps = {
+      default = {
+        type = "app";
+        program = "${wrapperScript}/bin/python-with-libs";
+      };
+      python-with-libs = {
+        type = "app";
+        program = "${wrapperScript}/bin/python-with-libs";
+      };
     };
+
     devShell = pkgs.mkShell {
       buildInputs = [ myEnv wrapperScript ];
       shellHook = ''
