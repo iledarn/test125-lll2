@@ -78,6 +78,7 @@
       google-api-python-client
       beautifulsoup4
       jira
+      numpy
       xlwt
       phonenumbers
       gevent
