@@ -1,5 +1,5 @@
 {
-  description = "Experiments to install libsass 0.12.3";
+  description = "Odoo 12.0 dependencies/utils";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
@@ -88,17 +88,17 @@
     wkhtmltopdf = wkhtmltopdf-flake.packages.${system}.default;
 
 
-    myEnv = pkgs.buildEnv {
-      name = "my-python-env-3-7-11";
+    odooEnv = pkgs.buildEnv {
+      name = "odoo-python-env-3-7-11";
       paths = with pkgs; [
         pythonEnv
-        stdenv.cc.cc.lib
+        stdenv.cc.cc.lib  # for libsass-python
         wkhtmltopdf
         postgresql_13
       ];
     };
 
-    wrapperScript = pkgs.writeScriptBin "python-with-libs" ''
+    wrapperScript = pkgs.writeScriptBin "python-for-odoo" ''
       #!${pkgs.stdenv.shell}
       export LD_LIBRARY_PATH=${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH
       exec ${pythonEnv}/bin/python "$@"
@@ -106,23 +106,23 @@
   in
   {
     packages = {
-      default = myEnv;
-      python-with-libs = wrapperScript;
+      default = odooEnv;
+      python-for-odoo = wrapperScript;
     };
 
     apps = {
       default = {
         type = "app";
-        program = "${wrapperScript}/bin/python-with-libs";
+        program = "${wrapperScript}/bin/python-for-odoo";
       };
-      python-with-libs = {
+      python-for-odoo = {
         type = "app";
-        program = "${wrapperScript}/bin/python-with-libs";
+        program = "${wrapperScript}/bin/python-for-odoo";
       };
     };
 
     devShell = pkgs.mkShell {
-      buildInputs = [ myEnv wrapperScript ];
+      buildInputs = [ odooEnv wrapperScript ];
       shellHook = ''
         export LD_LIBRARY_PATH=${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH
       '';
